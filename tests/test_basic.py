@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 import cmake_example as m
+import time  
+# p = m.Pet('Molly', 'Hamid')
+# print(p)
+# print(p.name())
+# print(p.species())
 
 
-def test_main():
-    assert m.__version__ == "0.0.1"
-    assert m.add(1, 2) == 3
-    assert m.subtract(1, 2) == -1
+
+print ("===================")
+d = m.Pet()
+print(d.name())
+print(d.species())

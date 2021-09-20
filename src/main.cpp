@@ -1,43 +1,45 @@
 #include <pybind11/pybind11.h>
+#include <iostream>
 
-#define STRINGIFY(x) #x
-#define MACRO_STRINGIFY(x) STRINGIFY(x)
+using namespace std;
 
-int add(int i, int j) {
-    return i + j;
-}
+    class Pet {
+    public:
+        Pet(const std::string &name, const std::string &species) : m_name(name), m_species(species)
+	{
+		cout << endl <<  "Advanced constructor"  ;
+		cout << endl << m_name << m_species ;
+
+	} 
+
+        Pet() : m_name("class 1: "), m_species("blah 1")
+	{
+
+		cout  << endl <<  "Basic constructor" ;
+		Pet("class 2: " , "blah 2");
+	}
+
+	~Pet()
+	{
+		cout << endl << "Destructor"  << m_name << m_species   ;
+	}
+
+        std::string name() const { return m_name; }
+        std::string species() const { return m_species; }
+    private:
+        std::string m_name;
+        std::string m_species;
+    };
 
 namespace py = pybind11;
 
 PYBIND11_MODULE(cmake_example, m) {
-    m.doc() = R"pbdoc(
-        Pybind11 example plugin
-        -----------------------
+py::class_<Pet>(m, "Pet")
+	.def(py::init<std::string, std::string>())
+	.def(py::init<>())
+	.def("name", &Pet::name)
+	.def("species", &Pet::species);
 
-        .. currentmodule:: cmake_example
-
-        .. autosummary::
-           :toctree: _generate
-
-           add
-           subtract
-    )pbdoc";
-
-    m.def("add", &add, R"pbdoc(
-        Add two numbers
-
-        Some other explanation about the add function.
-    )pbdoc");
-
-    m.def("subtract", [](int i, int j) { return i - j; }, R"pbdoc(
-        Subtract two numbers
-
-        Some other explanation about the subtract function.
-    )pbdoc");
-
-#ifdef VERSION_INFO
-    m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
-#else
-    m.attr("__version__") = "dev";
-#endif
 }
+
+
