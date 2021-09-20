@@ -5,23 +5,23 @@ using namespace std;
 
     class Pet {
     public:
-        Pet(const std::string &name, const std::string &species) : m_name(name), m_species(species)
-	{
-		cout << endl <<  "Advanced constructor"  ;
-		cout << endl << m_name << m_species ;
-
-	} 
-
         Pet() : m_name("class 1: "), m_species("blah 1")
 	{
 
-		cout  << endl <<  "Basic constructor" ;
+		cout  << endl <<  "Basic constructor: "  ;
 		Pet("class 2: " , "blah 2");
 	}
 
+        Pet(const std::string &name, const std::string &species) : m_name(name), m_species(species)
+	{
+		cout << endl <<  "Advanced constructor: "  ;
+		cout << m_name << m_species ;
+
+	} 
+
 	~Pet()
 	{
-		cout << endl << "Destructor"  << m_name << m_species   ;
+		cout << endl << "Destructor: "  << m_name << m_species   ;
 	}
 
         std::string name() const { return m_name; }
